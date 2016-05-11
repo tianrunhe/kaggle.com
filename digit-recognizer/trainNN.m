@@ -2,8 +2,6 @@ function [nn_params] = trainNN(X, y, input_layer_size, hidden_layer_size, num_la
 
 	%% ================ Initializing Pameters ================
 
-	fprintf('\nInitializing Neural Network Parameters ...\n')
-
 	initial_Theta1 = randInitializeWeights(input_layer_size, hidden_layer_size);
 	initial_Theta2 = randInitializeWeights(hidden_layer_size, num_labels);
 

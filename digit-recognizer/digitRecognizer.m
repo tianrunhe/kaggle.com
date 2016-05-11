@@ -11,24 +11,42 @@ function digitRecognizer(trainingFileName, predictionFileName)
 	% Load Training Data
 	fprintf('Reading Data from train.csv ...\n')
 	X = csvread(trainingFileName);
+	trainingExampleCount = int32((size(X, 1) - 1) * .7);
 
 	% remove header
 	X = X(2:end, :);
-
 	% first column is the label, mapping 0-9 to 1-10
 	y = X(:, 1) + 1;
 
 	% remove the first column
-	X = X(:, 2:end);
+	Xtrain = X(1:trainingExampleCount, 2:end);
+	Xval = X(trainingExampleCount+1:end, 2:end);
 
-	m = size(X, 1);
+	ytrain = y(1:trainingExampleCount,:);
+	yval = y(trainingExampleCount+1:end,:);
+
+	m = size(Xtrain, 1);
+
+	%% =================== Draw Learning Curve ===================
+
+	lambda = 1.0;
+	fprintf('\nDrawing Learning Curve... \n')
+	figure(1);
+	[error_train, error_val] = ...
+    	learningCurve(Xtrain, ytrain, Xval, yval, input_layer_size, hidden_layer_size, num_labels, lambda);
+	plot(1:m, error_train, 1:m, error_val);
+
+	title(sprintf('Neural Network Learning Curve (lambda = %f)', lambda));
+	xlabel('Number of training examples')
+	ylabel('Error')
+	legend('Train', 'Cross Validation')
 
 
 	%% =================== Training NN ===================
 
 	fprintf('\nTraining Neural Network... \n')
 
-	nn_params = trainNN(X, y, input_layer_size, hidden_layer_size, num_labels, 1.5);
+	nn_params = trainNN(Xtrain, ytrain, input_layer_size, hidden_layer_size, num_labels, 1.5);
 
 	% Obtain Theta1 and Theta2 back from nn_params
 	Theta1 = reshape(nn_params(1:hidden_layer_size * (input_layer_size + 1)), ...
