@@ -8,7 +8,7 @@ function [nn_params] = trainNN(X, y, input_layer_size, hidden_layer_size, num_la
 	% Unroll parameters
 	initial_nn_params = [initial_Theta1(:) ; initial_Theta2(:)];
 
-	options = optimset('MaxIter', 50);
+	options = optimset('MaxIter', 100);
 
 	% Create "short hand" for the cost function to be minimized
 	costFunction = @(p) nnCostFunction(p, ...
