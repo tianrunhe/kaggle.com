@@ -10,7 +10,7 @@ function [lambda_vec, error_train, error_val] = ...
 %
 
 % Selected values of lambda (you should not change this)
-lambda_vec = [0 0.001 0.003 0.01 0.03 0.1 0.3 1 3 10]';
+lambda_vec = [1.2:0.1:1.8]';
 
 error_train = zeros(length(lambda_vec), 1);
 error_val = zeros(length(lambda_vec), 1);

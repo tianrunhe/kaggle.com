@@ -2,7 +2,7 @@ function digitRecognizer(trainingFileName, predictionFileName)
 
 	%% Setup the parameters you will use for this exercise
 	input_layer_size  = 784;  % 28x28 Input Images of Digits
-	hidden_layer_size = 25;   % 25 hidden units
+	hidden_layer_size = 397;   % (28*28+10)/2 hidden units
 	num_labels = 10;          % 10 labels, from 0 to 9
 	                          % (note that we have mapped "0" to label 1, "1" to label 2, etc)
 
