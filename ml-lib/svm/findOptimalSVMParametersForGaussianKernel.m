@@ -1,11 +1,6 @@
-function [C, sigma] = dataset3Params(X, y, Xval, yval)
-%EX6PARAMS returns your choice of C and sigma for Part 3 of the exercise
-%where you select the optimal (C, sigma) learning parameters to use for SVM
-%with RBF kernel
-%   [C, sigma] = EX6PARAMS(X, y, Xval, yval) returns your choice of C and 
-%   sigma. You should complete this function to return the optimal C and 
-%   sigma based on a cross-validation set.
-%
+function [C, sigma] = findOptimalSVMParametersForGaussianKernel(X, y, Xval, yval)
+%returns the optimal (C, sigma) learning parameters to use for SVM
+%with gaussian kernel
 
 % You need to return the following variables correctly.
 C = 1;
@@ -29,6 +24,7 @@ for C_candidate=[0.03, 0.1, 0.3, 1, 3, 10]
 	for sigma_candidate=[0.03, 0.1, 0.3, 1, 3, 10]
 		fprintf('\nTraining with C = %2.2f, sigma = %2.2f ...', C_candidate, sigma_candidate);
 		model = svmTrain(X, y, C_candidate, @(x1, x2) gaussianKernel(x1, x2, sigma_candidate)); 
+		disp(model.w)
 		predictions = svmPredict(model, Xval);
 		error = mean(double(predictions ~= yval));
 		if error < min_error
@@ -36,6 +32,7 @@ for C_candidate=[0.03, 0.1, 0.3, 1, 3, 10]
 			C = C_candidate;
 			sigma = sigma_candidate;
 		end
+		fprintf('Error = %.2f. Best parameters so far are: C = %2.2f, sigma = %2.2f\n', error, C, sigma);
 	end
 end
 

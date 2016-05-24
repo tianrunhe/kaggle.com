@@ -73,10 +73,10 @@ else
 end
 
 % Train
-
+fprintf('\nTraining ...');
 dots = 12;
 while passes < max_passes,
-    fprintf('\n passes %2d', passes);  
+            
     num_changed_alphas = 0;
     for i = 1:m,
         
@@ -178,7 +178,7 @@ while passes < max_passes,
         fflush(stdout);
     end
 end
-fprintf(' Done! \n\n');
+fprintf(' Done! \n');
 
 % Save the model
 idx = alphas > 0;
