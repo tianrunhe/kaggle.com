@@ -24,7 +24,6 @@ for C_candidate=[0.03, 0.1, 0.3, 1, 3, 10]
 	for sigma_candidate=[0.03, 0.1, 0.3, 1, 3, 10]
 		fprintf('\nTraining with C = %2.2f, sigma = %2.2f ...', C_candidate, sigma_candidate);
 		model = svmTrain(X, y, C_candidate, @(x1, x2) gaussianKernel(x1, x2, sigma_candidate)); 
-		disp(model.w)
 		predictions = svmPredict(model, Xval);
 		error = mean(double(predictions ~= yval));
 		if error < min_error
