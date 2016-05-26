@@ -13,6 +13,5 @@ function pred = svm(X, y, Xtrain, ytrain, Xval, yval, X_test)
 
 	pred = svmPredict(model, X_test);
 	% add row number as 1st column
-	pred = [[1:size(pred,1)]' pred-1];
 
 end

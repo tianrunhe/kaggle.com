@@ -15,6 +15,6 @@ function pred = nn(X, y, Xtrain, ytrain, Xval, yval, X_test, input_layer_size, h
 
 
 	%% =========== Prediction =============
-	pred = nnPredict(Theta1, Theta2, Xval);
+	pred = nnPredict(Theta1, Theta2, X_test);
 
 end
