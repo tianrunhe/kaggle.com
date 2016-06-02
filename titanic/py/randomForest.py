@@ -21,8 +21,9 @@ train_df['Gender'] = train_df['Sex'].map( {'female': 0, 'male': 1} ).astype(int)
 # Note this is not ideal: in translating categories to numbers, Port "2" is not 2 times greater than Port "1", etc.
 
 # All missing Embarked -> just make them embark from most common place
+mode_embarked = train_df['Embarked'].dropna().mode().values
 if len(train_df.Embarked[ train_df.Embarked.isnull() ]) > 0:
-    train_df.Embarked[ train_df.Embarked.isnull() ] = train_df.Embarked.dropna().mode().values
+    train_df.loc[ (train_df.Embarked.isnull()), 'Embarked' ] = mode_embarked
 
 Ports = list(enumerate(np.unique(train_df['Embarked'])))    # determine all values of Embarked,
 Ports_dict = { name : i for i, name in Ports }              # set up a dictionary in the form  Ports : index
